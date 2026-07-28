@@ -65,6 +65,29 @@ se envía nada a ningún servidor. Puedes borrar entradas sueltas o todas.</p>
 <p>No. Esa acción también sustituye la clave, precisamente para que no se pueda
 recuperar nada. Por eso se pide confirmación.</p>
 
+<h3>La caja fuerte me pide la huella cada vez</h3>
+<p>Es a propósito. La clave de la caja fuerte solo se libera tras la
+autenticación y después no se queda en la memoria. Si la aplicación la
+retuviera, el cierre no sería más que una pantalla delante de la puerta.</p>
+
+<h3>La aplicación dice que la caja fuerte no está disponible</h3>
+<p>Hacen falta dos cosas: un bloqueo de pantalla en el dispositivo (PIN, patrón,
+contraseña o huella) y Android 10 o posterior. Si falta alguna, la aplicación no
+crea ninguna caja fuerte: llamar caja fuerte a algo con la puerta abierta no
+sirve de nada.</p>
+
+<h3>Mis entradas ya no se abren tras añadir una huella nueva</h3>
+<p>Cuando se añade una huella o un escaneo facial al dispositivo, Android
+descarta la clave de la caja fuerte. Es intencionado: de lo contrario, quien
+conozca tu PIN podría añadir un dedo propio y llegar a tus entradas. Lo que
+había queda ilegible; solo una copia de seguridad lo devuelve. La aplicación
+avisa de esto antes de que empieces a usar la caja fuerte.</p>
+
+<h3>He perdido la contraseña de mi copia de seguridad</h3>
+<p>Entonces ese archivo ya no se puede abrir, tampoco por quien hizo la
+aplicación. La contraseña no se guarda en ninguna parte; no hay nada que
+recuperar ni restablecer. Justo eso es lo que hace que la copia valga algo.</p>
+
 </main>
 
 <footer>

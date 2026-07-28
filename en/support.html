@@ -65,6 +65,29 @@ server. You can delete entries individually or all at once.</p>
 <p>No. That action also replaces the key, precisely so that nothing can be
 recovered. That is why it asks for confirmation first.</p>
 
+<h3>The ticket vault asks for my fingerprint every single time</h3>
+<p>That is by design. The vault's key is released only after authentication and
+is not kept in memory afterwards. If the app held on to it, the lock would be no
+more than a screen in front of the door.</p>
+
+<h3>The app says the ticket vault is unavailable</h3>
+<p>Two things have to be in place: a screen lock on the device (PIN, pattern,
+password or fingerprint) and Android 10 or later. If either is missing, the app
+creates no vault — calling something a vault while the door stands open serves
+no purpose.</p>
+
+<h3>My tickets will not open after a new fingerprint was added</h3>
+<p>When a fingerprint or face scan is added to the device, Android discards the
+vault's key. That is deliberate: otherwise someone who knows your PIN could add
+a finger of their own and reach your tickets. What was in the vault becomes
+unreadable; only a backup brings it back. The app warns you about this before
+you start using the vault.</p>
+
+<h3>I lost the password to my backup</h3>
+<p>Then that file can no longer be opened, not even by the app's author. The
+password is not stored anywhere; there is nothing to recover or reset. That is
+exactly what makes the backup worth something.</p>
+
 </main>
 
 <footer>

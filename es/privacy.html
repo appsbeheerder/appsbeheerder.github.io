@@ -34,14 +34,15 @@
 
 <main>
 
-<p class="datum">Última actualización: 21 de julio de 2026 · Válido para la
+<p class="datum">Última actualización: 28 de julio de 2026 · Válido para la
 aplicación <strong>Barcodehammer</strong> (Android e iOS)</p>
 
 <div class="kader nadruk">
   <p><strong>En resumen:</strong> la aplicación funciona totalmente sin conexión
   y no recoge, comparte ni transmite datos personales. Sin cuentas, sin
   anuncios, sin rastreadores, sin análisis. Todo permanece en tu dispositivo, y
-  el historial se guarda ahí cifrado.</p>
+  el historial se guarda ahí cifrado. Además, las entradas pueden ir a una caja
+  fuerte que solo se abre con tu huella, tu cara, tu PIN o tu patrón.</p>
 </div>
 
 <h2>1. ¿Qué datos se recogen?</h2>
@@ -52,39 +53,77 @@ sin análisis ni informes de fallos, sin datos de ubicación, contactos,
 calendario ni micrófono, y sin cookies.</p>
 
 <h2>2. ¿Qué permanece en tu dispositivo?</h2>
-<p>El historial de lo que has escaneado y creado, y tu elección de idioma y
-tema. El historial se guarda <strong>cifrado</strong> con AES-GCM; la clave está
+<p>El historial de lo que has escaneado y creado, lo que hayas guardado en la
+caja fuerte de entradas, y tu elección de idioma y tema. El historial y la caja
+fuerte se guardan <strong>cifrados</strong> con AES-256-GCM, cada uno en su
+propio archivo dentro de la carpeta privada de la aplicación; las claves están
 en el almacenamiento seguro del sistema operativo (Android Keystore, iOS
-Keychain) y no sale de ahí.</p>
+Keychain) y no salen de ahí.</p>
 <p>Por qué importa: un código escaneado puede contener cualquier cosa: una
 contraseña de wifi, un código de acceso, una dirección particular. Eso no debe
 quedar legible en el disco.</p>
 
-<h2>3. Borrado</h2>
+<h2>3. La caja fuerte de entradas</h2>
+<p>La caja fuerte es una lista aparte, cifrada, para códigos que prefieres no
+tener a la vista, como entradas de conciertos o billetes de viaje. El cierre
+llega hasta la clave: esta solo se libera tras tu huella, tu cara, tu PIN o tu
+patrón, y cada apertura vuelve a pedirlo. Sin esa autenticación no hay nada que
+leer, tampoco para quien se llevara el archivo del dispositivo. La caja fuerte
+se cierra de nuevo en cuanto sales de la aplicación o tocas el candado.</p>
+<p><strong>La aplicación no ve tu huella.</strong> La ventana en la que la
+pones es del propio Android; la aplicación solo recibe el aviso de que ha ido
+bien. No se lee, guarda ni envía ningún dato biométrico.</p>
+<p>Para ello hace falta el permiso <em>USE_BIOMETRIC</em> y un dispositivo con
+Android 10 o posterior que tenga bloqueo de pantalla configurado. Si no lo hay,
+la aplicación lo dice y no crea ninguna caja fuerte. Si más adelante se añade
+una huella o un escaneo facial nuevo al dispositivo, Android descarta la clave y
+la caja fuerte queda ilegible: es a propósito, y la aplicación avisa de ello de
+antemano.</p>
+
+<h2>4. Borrado</h2>
 <p>Puedes eliminar entradas sueltas, o todo el historial de una vez tras una
 advertencia. En ese último caso también se sustituye la clave, de modo que lo
-que pudiera quedar del archivo anterior ya no se puede leer.</p>
+que pudiera quedar del archivo anterior ya no se puede leer. La caja fuerte
+tiene su propia opción, que funciona igual.</p>
 <p>Desinstalar la aplicación borra todo lo que había guardado.</p>
 
-<h2>4. La cámara</h2>
+<h2>5. Copia de seguridad, exportación y compartir</h2>
+<p>A petición tuya, la aplicación escribe datos fuera de su propia carpeta. Esto
+nunca ocurre por sí solo.</p>
+<ul>
+  <li><strong>Copia de seguridad:</strong> historial y entradas en un solo
+  archivo, cifrado con una contraseña que eliges tú (AES-256-GCM, con la clave
+  derivada mediante PBKDF2). Tú decides dónde se guarda. Guarda bien esa
+  contraseña: sin ella nadie puede abrir el archivo, tampoco quien hizo la
+  aplicación. Ten en cuenta que dentro de ese archivo tus entradas quedan
+  protegidas por esa contraseña y ya no por tu huella.</li>
+  <li><strong>Exportación:</strong> un código creado por ti, como PNG, SVG o
+  PDF, en el lugar que indiques.</li>
+  <li><strong>Compartir:</strong> un código como imagen o como texto, hacia la
+  aplicación que elijas.</li>
+</ul>
+<p>Lo que ocurra con ese archivo una vez fuera de la aplicación depende de ti y
+de la aplicación o el servicio que hayas elegido.</p>
+
+<h2>6. La cámara</h2>
 <p>La cámara se usa únicamente para leer códigos. No se toman, guardan ni envían
 fotos ni vídeos; la imagen solo se analiza en directo para reconocer un
 código.</p>
 
-<h2>5. Compartir con terceros</h2>
+<h2>7. Compartir con terceros</h2>
 <p>No se comparte, vende ni cede nada, por la sencilla razón de que no se recoge
 nada y la aplicación no tiene conexión de red.</p>
 
-<h2>6. Menores</h2>
+<h2>8. Menores</h2>
 <p>La aplicación es apta para todas las edades y no recoge datos de nadie,
 tampoco de menores.</p>
 
-<h2>7. Cambios</h2>
+<h2>9. Cambios</h2>
 <p>Ante un cambio sustancial —por ejemplo, si alguna vez se añadiera una función
 que requiriese internet— se indicará claramente en la aplicación y en esta
 página antes de que esa función esté disponible.</p>
 
-<h2>8. Contacto</h2>
+<h2>10. Contacto</h2>
 <p><a href="mailto:appsbeheerder@lichtgolf.nl">appsbeheerder@lichtgolf.nl</a></p>
 
 </main>

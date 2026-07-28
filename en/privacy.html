@@ -34,14 +34,15 @@
 
 <main>
 
-<p class="datum">Last updated: 21 July 2026 · Applies to the
+<p class="datum">Last updated: 28 July 2026 · Applies to the
 <strong>Barcodehammer</strong> app (Android and iOS)</p>
 
 <div class="kader nadruk">
   <p><strong>In short:</strong> the app works fully offline and does not collect,
   share or transmit any personal data. No accounts, no advertising, no trackers,
   no analytics. Everything stays on your own device, and the history is stored
-  there encrypted.</p>
+  there encrypted. Tickets can also go into a vault that only opens with your
+  fingerprint, face, PIN or pattern.</p>
 </div>
 
 <h2>1. What data is collected?</h2>
@@ -52,37 +53,73 @@ analytics or crash reporting, no location data, contacts, calendar or
 microphone, and no cookies.</p>
 
 <h2>2. What stays on your device?</h2>
-<p>The history of what you scanned and created, plus your language and theme
-choice. The history is stored <strong>encrypted</strong> with AES-GCM; the key
-is held in the operating system's secure storage (Android Keystore, iOS
-Keychain) and never leaves it.</p>
+<p>The history of what you scanned and created, whatever you put in the ticket
+vault, and your language and theme choice. History and vault are stored
+<strong>encrypted</strong> with AES-256-GCM, each in its own file in the app's
+private folder; the keys are held in the operating system's secure storage
+(Android Keystore, iOS Keychain) and never leave it.</p>
 <p>Why that matters: a scanned code can contain anything — a wifi password, a
 login code, a home address. That does not belong on disk in readable form.</p>
 
-<h2>3. Deleting</h2>
+<h2>3. The ticket vault</h2>
+<p>The vault is a separate, encrypted list for codes you would rather not have
+on display, such as concert or travel tickets. The lock reaches all the way to
+the key: it is released only after your fingerprint, face, PIN or pattern, and
+every unlock asks again. Without that authentication there is nothing to read,
+not even for someone who takes the file off the device. The vault closes again
+as soon as you leave the app or tap the padlock yourself.</p>
+<p><strong>The app never sees your fingerprint.</strong> The dialog you place it
+on belongs to Android itself; the app is only told that it succeeded. No
+biometric data is read, stored or transmitted.</p>
+<p>This requires the <em>USE_BIOMETRIC</em> permission and a device running
+Android 10 or later with a screen lock set up. If that is missing, the app says
+so and creates no vault. If a new fingerprint or face scan is added to the
+device later, Android discards the key and the vault becomes unreadable — that
+is deliberate, and the app warns you beforehand.</p>
+
+<h2>4. Deleting</h2>
 <p>You can remove individual entries, or the entire history at once after a
 warning. In the latter case the key is replaced as well, so that anything left
-of the old file on disk can no longer be read.</p>
+of the old file on disk can no longer be read. The vault has its own such
+option, which works the same way.</p>
 <p>Uninstalling the app removes everything it stored.</p>
 
-<h2>4. The camera</h2>
+<h2>5. Backup, export and sharing</h2>
+<p>At your request the app writes data outside its own folder. This never
+happens on its own.</p>
+<ul>
+  <li><strong>Backup:</strong> history and tickets in a single file, encrypted
+  with a password you choose yourself (AES-256-GCM, key derived with PBKDF2).
+  You decide where the file goes. Keep that password safe: without it the file
+  cannot be opened by anyone, the app's author included. Note that inside that
+  file your tickets are protected by the password and no longer by your
+  fingerprint.</li>
+  <li><strong>Export:</strong> a code you created, as PNG, SVG or PDF, to the
+  location you point at.</li>
+  <li><strong>Sharing:</strong> a code as an image or as text, to an app of your
+  choosing.</li>
+</ul>
+<p>What happens to such a file once it has left the app is up to you and to the
+app or service you chose for it.</p>
+
+<h2>6. The camera</h2>
 <p>The camera is used only to read codes. No photos or videos are taken, stored
 or transmitted; the image is analysed live to recognise a code in it.</p>
 
-<h2>5. Sharing with third parties</h2>
+<h2>7. Sharing with third parties</h2>
 <p>Nothing is shared, sold or transferred, for the simple reason that nothing is
 collected and the app has no network connection.</p>
 
-<h2>6. Children</h2>
+<h2>8. Children</h2>
 <p>The app is suitable for all ages and collects data from no one, children
 included.</p>
 
-<h2>7. Changes</h2>
+<h2>9. Changes</h2>
 <p>Any significant change — for instance if a feature requiring internet were
 ever added — will be made clear in the app and on this page before that feature
 becomes available.</p>
 
-<h2>8. Contact</h2>
+<h2>10. Contact</h2>
 <p><a href="mailto:appsbeheerder@lichtgolf.nl">appsbeheerder@lichtgolf.nl</a></p>
 
 </main>
