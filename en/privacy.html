@@ -46,8 +46,13 @@
 </div>
 
 <h2>1. What data is collected?</h2>
-<p><strong>None.</strong> The app requests no internet permission and makes no
-connection. There is no server for anything to arrive at.</p>
+<p><strong>None.</strong> The app itself makes no connection. There is no server
+for anything to arrive at.</p>
+<p>The internet permission is in the app file. Barcodehammer does not request it;
+it comes from Google's scanning library (ML Kit) that recognises the codes, which
+puts the permission in its own part of the file. That library can send usage data
+about itself to Google over it. What you scan or create is not in that data: it
+stays on your device.</p>
 <p>Concretely: no registration or credentials, no advertising identifiers, no
 analytics or crash reporting, no location data, contacts, calendar or
 microphone, and no cookies.</p>
