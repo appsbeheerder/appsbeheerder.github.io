@@ -53,6 +53,10 @@ it comes from Google's scanning library (ML Kit) that recognises the codes, whic
 puts the permission in its own part of the file. That library can send usage data
 about itself to Google over it. What you scan or create is not in that data: it
 stays on your device.</p>
+<p>For the one-off purchase of Pro, the com.android.vending.BILLING permission
+is in the app file as well. That purchase goes through the Play Store app on
+your device: Google handles the payment and Barcodehammer only learns whether it
+has been paid. No payment details pass through the app.</p>
 <p>Concretely: no registration or credentials, no advertising identifiers, no
 analytics or crash reporting, no location data, contacts, calendar or
 microphone, and no cookies.</p>
