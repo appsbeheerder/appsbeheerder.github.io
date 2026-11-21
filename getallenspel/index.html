@@ -36,7 +36,7 @@ header b{color:var(--text);font-size:16px}
 .op:active{transform:scale(.95)}
 .log{flex:1;min-height:40px;overflow:auto;font-size:15px;color:var(--mute);line-height:1.6;-webkit-user-select:text;user-select:text}
 .log div:last-child{color:var(--text)}
-.bar{display:grid;grid-template-columns:1fr 1fr 1.4fr;gap:10px;margin-top:8px}
+.bar{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
 .btn{height:54px;border:0;border-radius:14px;background:var(--card);color:var(--text);font-size:17px;font-weight:600}
 .btn.main{background:var(--ok);color:#052e16}
 .btn:disabled{opacity:.35}
@@ -89,6 +89,7 @@ function persist(){try{localStorage.setItem("gs_save",JSON.stringify(save))}catc
 var st={target:0,start:[],items:[],hist:[],sel:null,op:null,log:[],solution:"",over:false};
 
 function rnd(a,b){return a+Math.floor(Math.random()*(b-a+1))}
+var MIN=1,MAX=999;
 function apply(a,op,b){
   var r;
   switch(op){
