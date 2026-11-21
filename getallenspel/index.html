@@ -36,7 +36,7 @@ header b{color:var(--text);font-size:16px}
 .op:active{transform:scale(.95)}
 .log{flex:1;min-height:40px;overflow:auto;font-size:15px;color:var(--mute);line-height:1.6;-webkit-user-select:text;user-select:text}
 .log div:last-child{color:var(--text)}
-.bar{display:grid;grid-template-columns:1fr 1fr 1.4fr;gap:10px;margin-top:8px}
+.bar{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
 .btn{height:54px;border:0;border-radius:14px;background:var(--card);color:var(--text);font-size:17px;font-weight:600}
 .btn.main{background:var(--ok);color:#052e16}
 .btn:disabled{opacity:.35}
@@ -61,8 +61,7 @@ header b{color:var(--text);font-size:16px}
 <div class="bar">
   <button class="btn" id="undo">↶ Terug</button>
   <button class="btn" id="reset">Opnieuw</button>
-  <button class="btn main" id="done">Klaar</button>
-</div>
+  </div>
 <div class="modal" id="modal"><div class="box">
   <h2 id="mTitle"></h2><div class="big" id="mNum"></div><p id="mText"></p><p id="mPts"></p>
   <button class="btn main" id="next">Volgende ronde</button>
@@ -79,13 +78,16 @@ try{rec=+localStorage.getItem("gs_rec")||0}catch(e){}
 $("rec").textContent=rec;
 
 function rnd(a,b){return a+Math.floor(Math.random()*(b-a+1))}
+var MIN=1,MAX=999;
 function apply(a,op,b){
+  var r;
   switch(op){
-    case 0:return a+b;
-    case 1:return a-b>0?a-b:null;
-    case 2:return a*b;
-    case 3:return b!==0&&a%b===0?a/b:null;
+    case 0:r=a+b;break;
+    case 1:r=a-b;break;
+    case 2:r=a*b;break;
+    default:r=(b!==0&&a%b===0)?a/b:null;
   }
+  return(r!==null&&r>=MIN&&r<=MAX)?r:null;
 }
 // Maak een doel dat zeker haalbaar is: speel willekeurig een route met de 5 getallen.
 function newPuzzle(){
@@ -94,8 +96,9 @@ function newPuzzle(){
     for(var i=0;i<5;i++)nums.push(rnd(1,10));
     if(Math.random()<.5)nums[rnd(0,4)]=[25,50,75,100][rnd(0,3)];
     var pool=nums.map(function(v){return{v:v,e:String(v)}});
-    var steps=rnd(3,4);
-    while(steps-- >0&&pool.length>1){
+    var guard=0,ok=true;
+    while(pool.length>1){
+      if(++guard>40){ok=false;break}
       var i1=rnd(0,pool.length-1),i2;do{i2=rnd(0,pool.length-1)}while(i2===i1);
       var o=rnd(0,3),r=apply(pool[i1].v,o,pool[i2].v);
       if(r===null)continue;
@@ -103,12 +106,12 @@ function newPuzzle(){
       pool=pool.filter(function(_,k){return k!==i1&&k!==i2});
       pool.push({v:r,e:e});
     }
-    var last=pool[pool.length-1];
-    if(last.v>=11&&last.v<=999&&pool.length<5&&nums.indexOf(last.v)<0){
+    var last=pool[0];
+    if(ok&&pool.length===1&&last.v>=MIN&&last.v<=MAX&&nums.indexOf(last.v)<0){
       return{nums:nums,target:last.v,solution:last.e.replace(/^\((.*)\)$/,"$1")+" = "+last.v};
     }
   }
-  return{nums:[1,2,3,4,5],target:60,solution:"(1 + 2) × 4 × 5 = 60"};
+  return{nums:[1,2,3,4,5],target:60,solution:"((1 + 2) × 4) × 5 = 60"};
 }
 function fmt(n){return String(n)}
 
@@ -138,7 +141,7 @@ function render(){
   var c=closest();
   st.items.forEach(function(it,i){
     var b=document.createElement("button");
-    b.className="num"+(st.sel===i?" sel":"")+(it.fresh?" new":"")+(c&&c.i===i&&st.items.length>1&&c.d>0?" closest":"");
+    b.className="num"+(st.sel===i?" sel":"")+(it.fresh?" new":"")+"";
     b.textContent=fmt(it.v);
     b.addEventListener("click",function(){pickNum(i)});
     g.appendChild(b);
@@ -153,10 +156,9 @@ function render(){
     ops.appendChild(b);
   });
   var best=$("best");
-  if(c){
-    best.className="best"+(c.d===0?" hit":"");
-    best.innerHTML=c.d===0?"<b>Precies goed! 🎯</b>":"Dichtstbij: <b>"+fmt(c.v)+"</b> · verschil <b>"+fmt(c.d)+"</b>";
-  }
+  best.className="best";
+  var left=st.items.length-1;
+  best.innerHTML="Gebruik alle getallen · nog <b>"+left+"</b> "+(left===1?"bewerking":"bewerkingen")+" · antwoord 1–999";
   var log=$("log");log.innerHTML="";
   st.log.forEach(function(l){var d=document.createElement("div");d.textContent=l;log.appendChild(d)});
   log.scrollTop=log.scrollHeight;
@@ -173,7 +175,7 @@ function pickNum(i){
   var a=st.items[st.sel].v,b=st.items[i].v,r=apply(a,st.op,b);
   if(r===null){
     vib(40);
-    flash(st.op===3?"Delen moet precies uitkomen":"Uitkomst moet boven 0 blijven");
+    flash(st.op===3?"Delen moet precies uitkomen":"Uitkomst moet tussen 1 en 999 liggen");
     st.op=null;render();return;
   }
   st.hist.push(JSON.stringify(st.items));
@@ -182,7 +184,7 @@ function pickNum(i){
   keep.push({v:r,fresh:true});
   st.items=keep;st.sel=null;st.op=null;
   render();vib(10);
-  if(r===st.target)finish();
+  if(st.items.length===1)finish();
 }
 function pickOp(i){
   if(st.over)return;
@@ -222,7 +224,6 @@ function finish(){
 }
 $("undo").addEventListener("click",undo);
 $("reset").addEventListener("click",function(){if(!st.over)resetBoard()});
-$("done").addEventListener("click",finish);
 $("next").addEventListener("click",function(){st.round++;startRound()});
 // voorkom pinch-zoom en dubbel-tik zoom op iOS
 ["gesturestart","gesturechange"].forEach(function(ev){document.addEventListener(ev,function(e){e.preventDefault()})});
